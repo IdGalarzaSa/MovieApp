@@ -18,7 +18,7 @@ class CardSwiperWidget extends StatelessWidget {
       padding: EdgeInsets.only(top: 16),
       child: Swiper(
         layout: SwiperLayout.STACK,
-        itemWidth: screenSize.width * 0.7,
+        itemWidth: screenSize.width * 0.6,
         itemHeight: screenSize.height * 0.5,
         itemBuilder: (BuildContext context, int index) {
           return ClipRRect(
@@ -26,7 +26,7 @@ class CardSwiperWidget extends StatelessWidget {
               child: FadeInImage(
                 image: NetworkImage(items[index].getPosterURL()),
                 placeholder: AssetImage("lib/assets/img/no-image.jpg"),
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
               ));
         },
         itemCount: items.length,
