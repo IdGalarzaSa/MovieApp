@@ -12,6 +12,7 @@ class MoviesProvider {
 
   // Keep all movies list into this list
   List<Movie> popularMoviesList = [];
+  var _isLoading = false;
 
   // Stream
   StreamController<List<Movie>> _popularsStreamController =
@@ -40,6 +41,10 @@ class MoviesProvider {
   }
 
   Future<List<Movie>> getPopularMovies() async {
+    if (_isLoading) return [];
+
+    _isLoading = true;
+
     _popularMoviesPage++;
 
     final url = Uri.https(_url, '3/movie/popular', {
@@ -47,16 +52,17 @@ class MoviesProvider {
       'language': _language,
       'page': _popularMoviesPage.toString()
     });
-    return await makeRequest(url);
+    List<Movie> moviesList = await makeRequest(url);
+    popularMoviesList.addAll(moviesList);
+    popularMoviesSink(popularMoviesList);
+    _isLoading = false;
+    return moviesList;
   }
 
   Future<List<Movie>> makeRequest(Uri url) async {
     final response = await http.get(url);
     final decodedData = json.decode(response.body);
     final moviesList = new Movies.fromJsonList(decodedData['results']).items;
-
-    popularMoviesSink(moviesList);
-
     return moviesList;
   }
 }
