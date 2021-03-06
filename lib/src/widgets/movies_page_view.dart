@@ -40,12 +40,14 @@ class MoviesPageView extends StatelessWidget {
   }
 
   Widget _cardMovie(BuildContext context, Movie movie, Size screeSize) {
+    movie.uniqueId = UniqueKey().toString();
+
     final tarjeta = Container(
       margin: EdgeInsets.only(right: 15.0),
       child: Column(
         children: [
           Hero(
-            tag: movie.id,
+            tag: movie.uniqueId,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(25.0),
               child: FadeInImage(

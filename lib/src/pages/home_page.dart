@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/src/connection/models/movies_model.dart';
 import 'package:movies_app/src/connection/providers/movies_provider.dart';
+import 'package:movies_app/src/delegate/search_delegate.dart';
 import 'package:movies_app/src/widgets/card_swiper_widget.dart';
 import 'package:movies_app/src/widgets/movies_page_view.dart';
 
@@ -20,7 +21,9 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.search),
-            onPressed: () {},
+            onPressed: () {
+              showSearch(context: context, delegate: DataSearch());
+            },
           ),
         ],
       ),
