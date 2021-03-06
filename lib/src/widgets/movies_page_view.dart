@@ -44,13 +44,16 @@ class MoviesPageView extends StatelessWidget {
       margin: EdgeInsets.only(right: 15.0),
       child: Column(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(25.0),
-            child: FadeInImage(
-              placeholder: AssetImage("lib/assets/img/no-image.jpg"),
-              image: NetworkImage(movie.getPosterURL()),
-              fit: BoxFit.cover,
-              height: screeSize.height * 0.2,
+          Hero(
+            tag: movie.id,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(25.0),
+              child: FadeInImage(
+                placeholder: AssetImage("lib/assets/img/no-image.jpg"),
+                image: NetworkImage(movie.getPosterURL()),
+                fit: BoxFit.cover,
+                height: screeSize.height * 0.2,
+              ),
             ),
           ),
           Text(

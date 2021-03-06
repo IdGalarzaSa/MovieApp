@@ -60,11 +60,14 @@ class MovieDetailPage extends StatelessWidget {
       height: size.height * 0.20,
       child: Row(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(25.0),
-            child: FadeInImage(
-                placeholder: AssetImage("lib/assets/img/loading.gif"),
-                image: NetworkImage(movie.getPosterURL())),
+          Hero(
+            tag: movie.id,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(25.0),
+              child: FadeInImage(
+                  placeholder: AssetImage("lib/assets/img/loading.gif"),
+                  image: NetworkImage(movie.getPosterURL())),
+            ),
           ),
           SizedBox(width: 30),
           Flexible(
