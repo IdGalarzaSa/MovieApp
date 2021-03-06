@@ -70,4 +70,12 @@ class Movie {
       return "https://image.tmdb.org/t/p/w500/$posterPath";
     }
   }
+
+  String getBackgroundImage() {
+    if (backdropPath == null) {
+      return "https://st4.depositphotos.com/17828278/24401/v/600/depositphotos_244011872-stock-illustration-image-vector-symbol-missing-available.jpg";
+    } else {
+      return "https://image.tmdb.org/t/p/w500/$backdropPath";
+    }
+  }
 }

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:movies_app/src/connection/models/cast_model.dart';
 import 'package:movies_app/src/connection/models/movies_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -28,15 +29,11 @@ class MoviesProvider {
     _popularsStreamController.close();
   }
 
-  Map<String, String> get basicParams {
-    return {
+  Future<List<Movie>> getNowPlaying() async {
+    final url = Uri.https(_url, '3/movie/now_playing', {
       'api_key': _apikey,
       'language': _language,
-    };
-  }
-
-  Future<List<Movie>> getNowPlaying() async {
-    final url = Uri.https(_url, '3/movie/now_playing', basicParams);
+    });
     return await makeRequest(url);
   }
 
@@ -57,6 +54,18 @@ class MoviesProvider {
     popularMoviesSink(popularMoviesList);
     _isLoading = false;
     return moviesList;
+  }
+
+  Future<List<Cast>> getCast(Movie movie) async {
+    final url = Uri.https(_url, '3/movie/${movie.id}/credits', {
+      'api_key': _apikey,
+      'language': _language,
+    });
+    final response = await http.get(url);
+    final decodedData = json.decode(response.body);
+    final castList =
+        new CastResponse.fromJsonList(decodedData['cast']).castList;
+    return castList;
   }
 
   Future<List<Movie>> makeRequest(Uri url) async {
